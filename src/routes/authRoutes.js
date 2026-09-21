@@ -1,0 +1,45 @@
+import { Router } from "express";
+import { body } from "express-validator";
+import { prisma } from "../lib/prisma.js";
+import {
+  getRegisterForm,
+  registerUser,
+} from "../controllers/authController.js";
+
+const authRouter = Router();
+
+const registrationValidation = [
+  body("email")
+    .trim()
+    .isEmail()
+    .withMessage("Enter a valid email address.")
+    .normalizeEmail()
+    .custom(async (email) => {
+      const existingUser = await prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (existingUser) {
+        throw new Error("An account with that email already exists.");
+      }
+
+      return true;
+    }),
+
+  body("password")
+    .isLength({ min: 8 })
+    .withMessage("Password must contain at least 8 characters."),
+
+  body("confirmPassword").custom((confirmPassword, { req }) => {
+    if (confirmPassword !== req.body.password) {
+      throw new Error("Passwords must match.");
+    }
+
+    return true;
+  }),
+];
+
+authRouter.get("/register", getRegisterForm);
+authRouter.post("/register", registrationValidation, registerUser);
+
+export { authRouter };
