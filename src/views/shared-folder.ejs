@@ -1,0 +1,49 @@
+<%- include("partials/header", { title: folder.name }) %>
+
+<main class="page">
+  <header class="page-heading">
+    <p class="eyebrow">Shared folder</p>
+    <h1><%= folder.name %></h1>
+
+    <p>
+      This link expires
+      <time datetime="<%= shareLink.expiresAt.toISOString() %>">
+        <%= shareLink.expiresAt.toLocaleString() %>
+      </time>.
+    </p>
+  </header>
+
+  <section class="storage-section" aria-labelledby="shared-files-heading">
+    <h2 id="shared-files-heading">Files</h2>
+
+    <% if (files.length === 0) { %>
+      <div class="empty-state">
+        <p>This folder contains no files.</p>
+      </div>
+    <% } else { %>
+      <div class="file-list">
+        <% files.forEach((file) => { %>
+          <article class="file-row">
+            <div>
+              <h3><%= file.originalName %></h3>
+              <p>
+                <%= file.mimeType %>
+                ·
+                <%= file.size.toLocaleString() %> bytes
+              </p>
+            </div>
+
+            <a
+              class="button"
+              href="/share/<%= shareLink.id %>/files/<%= file.id %>/download"
+            >
+              Download
+            </a>
+          </article>
+        <% }); %>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

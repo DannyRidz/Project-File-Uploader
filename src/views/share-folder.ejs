@@ -1,0 +1,93 @@
+<%- include("partials/header", { title: `Share ${folder.name}` }) %>
+
+<main class="page page-narrow">
+  <section class="card">
+    <p class="eyebrow">Folder sharing</p>
+    <h1>Share <%= folder.name %></h1>
+    <p>
+      Anyone with an active link can view and download files in this folder.
+    </p>
+
+    <% if (errors.length > 0) { %>
+      <section class="error-box" aria-labelledby="share-error-heading">
+        <h2 id="share-error-heading">Please fix the following:</h2>
+
+        <ul>
+          <% errors.forEach((error) => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </section>
+    <% } %>
+
+    <% if (createdShare) { %>
+      <section class="success-box" aria-labelledby="created-link-heading">
+        <h2 id="created-link-heading">Share link created</h2>
+
+        <label for="createdShareUrl">Copy this link</label>
+        <input
+          id="createdShareUrl"
+          type="url"
+          value="<%= createdShare.url %>"
+          readonly
+        >
+
+        <p>
+          Expires:
+          <time datetime="<%= createdShare.expiresAt.toISOString() %>">
+            <%= createdShare.expiresAt.toLocaleString() %>
+          </time>
+        </p>
+      </section>
+    <% } %>
+
+    <form
+      class="stack"
+      action="/folders/<%= folder.id %>/share"
+      method="post"
+    >
+      <div class="field">
+        <label for="durationDays">Duration in days</label>
+        <input
+          id="durationDays"
+          name="durationDays"
+          type="number"
+          min="1"
+          max="30"
+          value="<%= values.durationDays %>"
+          required
+        >
+      </div>
+
+      <button class="button" type="submit">Generate share link</button>
+    </form>
+  </section>
+
+  <section class="storage-section">
+    <h2>Active links</h2>
+
+    <% if (shares.length === 0) { %>
+      <div class="empty-state">
+        <p>This folder has no active share links.</p>
+      </div>
+    <% } else { %>
+      <div class="share-list">
+        <% shares.forEach((share) => { %>
+          <article class="share-row">
+            <a href="<%= share.url %>"><%= share.url %></a>
+
+            <time datetime="<%= share.expiresAt.toISOString() %>">
+              Expires <%= share.expiresAt.toLocaleString() %>
+            </time>
+          </article>
+        <% }); %>
+      </div>
+    <% } %>
+  </section>
+
+  <p>
+    <a href="/dashboard">Back to dashboard</a>
+  </p>
+</main>
+
+<%- include("partials/footer") %>

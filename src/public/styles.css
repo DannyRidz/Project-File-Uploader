@@ -336,3 +336,50 @@ a {
     gap: 0.2rem;
   }
 }
+
+.success-box {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  color: #175c36;
+  background: #ecfdf3;
+  border: 1px solid #a6e3bd;
+  border-radius: 0.5rem;
+}
+
+.success-box h2 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.success-box input {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.75rem 0.85rem;
+  color: inherit;
+  background: #ffffff;
+  border: 1px solid #89c9a1;
+  border-radius: 0.5rem;
+  font: inherit;
+}
+
+.share-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.share-row {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #dfe5ef;
+  border-radius: 0.75rem;
+}
+
+.share-row a {
+  overflow-wrap: anywhere;
+}
+
+.share-row time {
+  color: #667085;
+}

@@ -17,13 +17,14 @@ model User {
 }
 
 model Folder {
-  id        Int      @id @default(autoincrement())
-  name      String
-  ownerId   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  files     File[]
+  id         Int         @id @default(autoincrement())
+  name       String
+  ownerId    Int
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  owner      User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  files      File[]
+  shareLinks ShareLink[]
 
   @@unique([ownerId, name])
 }
@@ -43,6 +44,17 @@ model File {
 
   @@index([ownerId])
   @@index([folderId])
+}
+
+model ShareLink {
+  id        String   @id @default(uuid())
+  folderId  Int
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  @@index([folderId])
+  @@index([expiresAt])
 }
 
 model Session {

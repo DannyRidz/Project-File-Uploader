@@ -8,6 +8,7 @@ import { prisma } from "./lib/prisma.js";
 import { authRouter } from "./routes/authRoutes.js";
 import { folderRouter } from "./routes/folderRoutes.js";
 import { fileRouter } from "./routes/fileRoutes.js";
+import { shareRouter } from "./routes/shareRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -56,6 +57,7 @@ app.get("/", (req, res) => {
 app.use(authRouter);
 app.use(folderRouter);
 app.use(fileRouter);
+app.use(shareRouter);
 
 app.use((error, req, res, next) => {
   console.error(error);

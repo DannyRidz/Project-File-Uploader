@@ -23,3 +23,7 @@ _Avoid_: Home folder
 **Session**:
 A temporary authenticated visit associated with a browser.
 _Avoid_: Login
+
+**Share Link**:
+A temporary address that grants unauthenticated access to one folder and its files until a specified expiration time.
+_Avoid_: Public folder, permanent link
