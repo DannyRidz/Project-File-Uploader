@@ -41,6 +41,42 @@
     </form>
   </section>
 
+  <section class="card storage-section">
+  <h2>Upload a file</h2>
+  <p>Allowed types: JPEG, PNG, PDF, and plain text. Maximum size: 5 MB.</p>
+
+  <form
+    class="stack"
+    action="/files"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div class="field">
+      <label for="file">Choose file</label>
+      <input
+        id="file"
+        name="file"
+        type="file"
+        accept=".jpg,.jpeg,.png,.pdf,.txt"
+        required
+      >
+    </div>
+
+    <div class="field">
+      <label for="folderId">Folder</label>
+      <select id="folderId" name="folderId">
+        <option value="">Root</option>
+
+        <% folders.forEach((folder) => { %>
+          <option value="<%= folder.id %>"><%= folder.name %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <button class="button" type="submit">Upload file</button>
+  </form>
+</section>
+
   <section class="storage-section" aria-labelledby="folders-heading">
     <h2 id="folders-heading">Folders</h2>
 
@@ -72,6 +108,37 @@
       </div>
     <% } %>
   </section>
+
+<section class="storage-section" aria-labelledby="files-heading">
+  <h2 id="files-heading">Files</h2>
+
+  <% if (files.length === 0) { %>
+    <div class="empty-state">
+      <h3>No files yet</h3>
+      <p>Upload your first file using the form above.</p>
+    </div>
+  <% } else { %>
+    <div class="file-list">
+      <% files.forEach((file) => { %>
+        <article class="file-row">
+          <div>
+            <h3><%= file.originalName %></h3>
+            <p>
+              <%= file.folder ? file.folder.name : "Root" %>
+              ·
+              <%= Math.ceil(file.size / 1024) %> KB
+            </p>
+          </div>
+
+          <time datetime="<%= file.uploadedAt.toISOString() %>">
+            <%= file.uploadedAt.toLocaleString() %>
+          </time>
+        </article>
+      <% }); %>
+    </div>
+  <% } %>
+</section>
+
 </main>
 
 <%- include("partials/footer") %>

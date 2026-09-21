@@ -2,17 +2,32 @@ import { validationResult } from "express-validator";
 import { prisma } from "../lib/prisma.js";
 
 async function renderDashboard(res, user, options = {}) {
-  const folders = await prisma.folder.findMany({
-    where: {
-      ownerId: user.id,
-    },
-    orderBy: {
-      name: "asc",
-    },
-  });
+  const [folders, files] = await Promise.all([
+    prisma.folder.findMany({
+      where: {
+        ownerId: user.id,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    }),
+
+    prisma.file.findMany({
+      where: {
+        ownerId: user.id,
+      },
+      include: {
+        folder: true,
+      },
+      orderBy: {
+        uploadedAt: "desc",
+      },
+    }),
+  ]);
 
   return res.status(options.status ?? 200).render("dashboard", {
     folders,
+    files,
     folderErrors: options.folderErrors ?? [],
     folderValues: options.folderValues ?? {
       name: "",
