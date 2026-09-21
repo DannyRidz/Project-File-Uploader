@@ -1,5 +1,4 @@
 import path from "node:path";
-import { randomUUID } from "node:crypto";
 import multer from "multer";
 
 const allowedFileTypes = new Map([
@@ -8,17 +7,6 @@ const allowedFileTypes = new Map([
   ["application/pdf", [".pdf"]],
   ["text/plain", [".txt"]],
 ]);
-
-const storage = multer.diskStorage({
-  destination: "uploads",
-
-  filename(req, file, callback) {
-    const extension = path.extname(file.originalname).toLowerCase();
-    const storedName = `${randomUUID()}${extension}`;
-
-    callback(null, storedName);
-  },
-});
 
 function fileFilter(req, file, callback) {
   const extension = path.extname(file.originalname).toLowerCase();
@@ -34,7 +22,7 @@ function fileFilter(req, file, callback) {
 }
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   fileFilter,
   limits: {
     fileSize: 5 * 1024 * 1024,

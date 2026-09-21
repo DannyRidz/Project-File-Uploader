@@ -1,0 +1,46 @@
+<%- include("partials/header", { title: file.originalName }) %>
+
+<main class="page page-narrow">
+  <section class="card">
+    <p class="eyebrow">File details</p>
+    <h1 class="file-name"><%= file.originalName %></h1>
+
+    <dl class="details-list">
+      <div>
+        <dt>Folder</dt>
+        <dd><%= file.folder ? file.folder.name : "Root" %></dd>
+      </div>
+
+      <div>
+        <dt>Type</dt>
+        <dd><%= file.mimeType %></dd>
+      </div>
+
+      <div>
+        <dt>Size</dt>
+        <dd><%= file.size.toLocaleString() %> bytes</dd>
+      </div>
+
+      <div>
+        <dt>Uploaded</dt>
+        <dd>
+          <time datetime="<%= file.uploadedAt.toISOString() %>">
+            <%= file.uploadedAt.toLocaleString() %>
+          </time>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="actions">
+      <a class="button" href="/files/<%= file.id %>/download">
+        Download
+      </a>
+
+      <a class="button button-secondary" href="/dashboard">
+        Back to dashboard
+      </a>
+    </div>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

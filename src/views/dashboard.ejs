@@ -122,7 +122,11 @@
       <% files.forEach((file) => { %>
         <article class="file-row">
           <div>
-            <h3><%= file.originalName %></h3>
+            <h3>
+  <a href="/files/<%= file.id %>">
+    <%= file.originalName %>
+  </a>
+</h3>
             <p>
               <%= file.folder ? file.folder.name : "Root" %>
               ·
