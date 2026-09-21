@@ -1,0 +1,18 @@
+<%- include("partials/header", { title: "Dashboard" }) %>
+
+<main class="page">
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">Your storage</p>
+      <h1>Your files</h1>
+      <p>Signed in as <%= currentUser.email %></p>
+    </div>
+  </header>
+
+  <section class="empty-state">
+    <h2>No files yet</h2>
+    <p>Folder and file management will be added in the next steps.</p>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

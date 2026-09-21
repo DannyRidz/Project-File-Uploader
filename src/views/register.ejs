@@ -1,66 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create account | File Uploader</title>
-  </head>
+<%- include("partials/header", { title: "Create account" }) %>
 
-  <body>
-    <main>
-      <h1>Create an account</h1>
+<main class="page page-narrow">
+  <section class="card">
+    <h1>Create an account</h1>
 
-      <% if (errors.length > 0) { %>
-        <section aria-labelledby="error-heading">
-          <h2 id="error-heading">Please fix the following:</h2>
+    <% if (errors.length > 0) { %>
+      <section class="error-box" aria-labelledby="error-heading">
+        <h2 id="error-heading">Please fix the following:</h2>
 
-          <ul>
-            <% errors.forEach((error) => { %>
-              <li><%= error.msg %></li>
-            <% }); %>
-          </ul>
-        </section>
-      <% } %>
+        <ul>
+          <% errors.forEach((error) => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </section>
+    <% } %>
 
-      <form action="/register" method="post">
-        <div>
-          <label for="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value="<%= values.email %>"
-            autocomplete="email"
-            required
-          >
-        </div>
+    <form class="stack" action="/register" method="post">
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value="<%= values.email %>"
+          autocomplete="email"
+          required
+        >
+      </div>
 
-        <div>
-          <label for="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
-        </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+      </div>
 
-        <div>
-          <label for="confirmPassword">Confirm password</label>
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
-        </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+      </div>
 
-        <button type="submit">Create account</button>
-      </form>
-    </main>
-  </body>
-</html>
+      <button class="button" type="submit">Create account</button>
+    </form>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

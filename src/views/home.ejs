@@ -1,0 +1,20 @@
+<%- include("partials/header", { title: "Home" }) %>
+
+<main class="page">
+  <section class="hero">
+    <p class="eyebrow">Personal cloud storage</p>
+    <h1>Keep your files organized.</h1>
+    <p>Upload files, organize them into folders, and download them when needed.</p>
+
+    <% if (currentUser) { %>
+      <a class="button" href="/dashboard">Open your dashboard</a>
+    <% } else { %>
+      <div class="actions">
+        <a class="button" href="/register">Create an account</a>
+        <a class="button button-secondary" href="/login">Log in</a>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

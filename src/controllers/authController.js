@@ -1,3 +1,4 @@
+import passport from "passport";
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import { prisma } from "../lib/prisma.js";
@@ -43,4 +44,48 @@ async function registerUser(req, res, next) {
   }
 }
 
-export { getRegisterForm, registerUser };
+function getLoginForm(req, res) {
+  res.render("login", {
+    error: null,
+    values: {
+      email: "",
+    },
+  });
+}
+
+function loginUser(req, res, next) {
+  passport.authenticate("local", (error, user, info) => {
+    if (error) {
+      return next(error);
+    }
+
+    if (!user) {
+      return res.status(401).render("login", {
+        error: info?.message || "Login failed.",
+        values: {
+          email: req.body.email,
+        },
+      });
+    }
+
+    return req.logIn(user, (loginError) => {
+      if (loginError) {
+        return next(loginError);
+      }
+
+      return res.redirect("/dashboard");
+    });
+  })(req, res, next);
+}
+
+function logoutUser(req, res, next) {
+  req.logout((error) => {
+    if (error) {
+      return next(error);
+    }
+
+    return res.redirect("/");
+  });
+}
+
+export { getLoginForm, getRegisterForm, loginUser, logoutUser, registerUser };

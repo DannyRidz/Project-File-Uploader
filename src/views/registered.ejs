@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account created | File Uploader</title>
-  </head>
+<%- include("partials/header", { title: "Account created" }) %>
 
-  <body>
-    <main>
-      <h1>Account created</h1>
-      <p>Your account for <%= user.email %> was created successfully.</p>
-      <p>Login will be added in the next step.</p>
-    </main>
-  </body>
-</html>
+<main class="page page-narrow">
+  <section class="card">
+    <h1>Account created</h1>
+    <p>Your account for <%= user.email %> was created successfully.</p>
+    <a class="button" href="/login">Log in to your account</a>
+  </section>
+</main>
+
+<%- include("partials/footer") %>
