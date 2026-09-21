@@ -6,6 +6,7 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import "./config/passport.js";
 import { prisma } from "./lib/prisma.js";
 import { authRouter } from "./routes/authRoutes.js";
+import { folderRouter } from "./routes/folderRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -52,6 +53,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(authRouter);
+app.use(folderRouter);
 
 app.use((error, req, res, next) => {
   console.error(error);

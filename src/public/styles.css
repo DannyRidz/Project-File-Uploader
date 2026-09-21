@@ -187,3 +187,74 @@ a {
     flex-direction: column;
   }
 }
+
+.page-heading {
+  margin-bottom: 2rem;
+}
+
+.page-heading h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.folder-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem;
+}
+
+.storage-section {
+  margin-top: 3rem;
+}
+
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.folder-card {
+  display: flex;
+  min-height: 12rem;
+  padding: 1.25rem;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #dfe5ef;
+  border-radius: 0.75rem;
+}
+
+.folder-card h3 {
+  overflow-wrap: anywhere;
+}
+
+.folder-icon {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.folder-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.folder-actions form {
+  margin: 0;
+}
+
+.danger-button {
+  padding: 0;
+  color: #b42318;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 36rem) {
+  .folder-form {
+    grid-template-columns: 1fr;
+  }
+}

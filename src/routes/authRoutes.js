@@ -8,7 +8,6 @@ import {
   logoutUser,
   registerUser,
 } from "../controllers/authController.js";
-import { ensureAuthenticated } from "../middleware/auth.js";
 
 const authRouter = Router();
 
@@ -49,9 +48,5 @@ authRouter.post("/register", registrationValidation, registerUser);
 authRouter.get("/login", getLoginForm);
 authRouter.post("/login", loginUser);
 authRouter.post("/logout", logoutUser);
-
-authRouter.get("/dashboard", ensureAuthenticated, (req, res) => {
-  res.render("dashboard", { user: req.user });
-});
 
 export { authRouter };

@@ -1,0 +1,44 @@
+<%- include("partials/header", { title: "Rename folder" }) %>
+
+<main class="page page-narrow">
+  <section class="card">
+    <h1>Rename folder</h1>
+
+    <% if (errors.length > 0) { %>
+      <section class="error-box" aria-labelledby="error-heading">
+        <h2 id="error-heading">Please fix the following:</h2>
+
+        <ul>
+          <% errors.forEach((error) => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </section>
+    <% } %>
+
+    <form
+      class="stack"
+      action="/folders/<%= folder.id %>/edit"
+      method="post"
+    >
+      <div class="field">
+        <label for="name">Folder name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          value="<%= folder.name %>"
+          maxlength="80"
+          required
+        >
+      </div>
+
+      <div class="actions">
+        <button class="button" type="submit">Save changes</button>
+        <a class="button button-secondary" href="/dashboard">Cancel</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<%- include("partials/footer") %>

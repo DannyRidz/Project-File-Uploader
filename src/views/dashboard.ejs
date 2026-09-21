@@ -9,9 +9,68 @@
     </div>
   </header>
 
-  <section class="empty-state">
-    <h2>No files yet</h2>
-    <p>Folder and file management will be added in the next steps.</p>
+  <section class="card">
+    <h2>Create a folder</h2>
+
+    <% if (folderErrors.length > 0) { %>
+      <section class="error-box" aria-labelledby="folder-error-heading">
+        <h3 id="folder-error-heading">Please fix the following:</h3>
+
+        <ul>
+          <% folderErrors.forEach((error) => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </section>
+    <% } %>
+
+    <form class="folder-form" action="/folders" method="post">
+      <div class="field">
+        <label for="name">Folder name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          value="<%= folderValues.name %>"
+          maxlength="80"
+          required
+        >
+      </div>
+
+      <button class="button" type="submit">Create folder</button>
+    </form>
+  </section>
+
+  <section class="storage-section" aria-labelledby="folders-heading">
+    <h2 id="folders-heading">Folders</h2>
+
+    <% if (folders.length === 0) { %>
+      <div class="empty-state">
+        <h3>No folders yet</h3>
+        <p>Create your first folder using the form above.</p>
+      </div>
+    <% } else { %>
+      <div class="folder-grid">
+        <% folders.forEach((folder) => { %>
+          <article class="folder-card">
+            <div>
+              <p class="folder-icon" aria-hidden="true">📁</p>
+              <h3><%= folder.name %></h3>
+            </div>
+
+            <div class="folder-actions">
+              <a href="/folders/<%= folder.id %>/edit">Rename</a>
+
+              <form action="/folders/<%= folder.id %>/delete" method="post">
+                <button class="danger-button" type="submit">
+                  Delete
+                </button>
+              </form>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    <% } %>
   </section>
 </main>
 
